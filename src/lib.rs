@@ -146,10 +146,10 @@ impl AddAssign for Progress {
 ///
 /// ```rust
 /// # use bevy::prelude::*;
-/// # use bevy_loading::ProgressPlugin;
+/// # use iyes_progress::ProgressPlugin;
 /// # let mut app = App::default();
-/// app.add_plugin(LoadingPlugin::new(MyState::GameLoading).continue_to(MyState::InGame));
-/// app.add_plugin(LoadingPlugin::new(MyState::Splash).continue_to(MyState::MainMenu));
+/// app.add_plugin(ProgressPlugin::new(MyState::GameLoading).continue_to(MyState::InGame));
+/// app.add_plugin(ProgressPlugin::new(MyState::Splash).continue_to(MyState::MainMenu));
 /// # #[derive(Debug, Clone, PartialEq, Eq, Hash)]
 /// # enum MyState {
 /// #     Splash,
@@ -253,7 +253,7 @@ impl<S: StateData> Plugin for ProgressPlugin<S> {
         let stagelabel = StageLabel(format!("iyes_progress init: {:?}", &self.state));
 
         app.add_stage_after(
-            iyes_loopless::state::app::StateTransitionStageLabel::from_type::<S>(),
+            iyes_loopless::state::StateTransitionStageLabel::from_type::<S>(),
             stagelabel.clone(),
             SystemStage::single_threaded()
         );
